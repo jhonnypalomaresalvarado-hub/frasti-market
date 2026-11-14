@@ -1,0 +1,157 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Frasti Market: comparador de repuestos</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eaf3fb;--sf:#fff;--ink:#0b1620;--mut:#56687a;--ln:#cfdeeb;--acc:#75aadb;--good:#14804a;--gbg:#dff3e7;--warn:#8a5200;--wbg:#ffeccb;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10161c;--sf:#18212a;--ink:#e8edf2;--mut:#98a5b3;--ln:#2c3844;--good:#4cc88a;--gbg:#12301f;--warn:#f0b44c;--wbg:#3a2a0c;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10161c;--sf:#18212a;--ink:#e8edf2;--mut:#98a5b3;--ln:#2c3844;--good:#4cc88a;--gbg:#12301f;--warn:#f0b44c;--wbg:#3a2a0c;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.45 Archivo,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{max-width:980px;margin:0 auto;padding:16px}
+.demo{background:var(--acc);color:#16212b;font-weight:600;text-align:center;padding:8px 12px;font-size:14px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0}
+.logo{font-weight:800;font-size:20px;text-decoration:none;letter-spacing:-.01em}
+.logo b{background:var(--acc);color:#16212b;padding:0 6px;border-radius:4px}
+.btn{display:inline-block;border:2px solid var(--ink);background:var(--sf);border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer;text-decoration:none;min-height:44px}
+.btn.pri{background:var(--acc);color:#16212b;border-color:#16212b}
+.btn.sm{padding:6px 12px;min-height:36px;font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.chip{border:2px solid var(--ln);background:var(--sf);border-radius:999px;padding:8px 16px;font-weight:600;cursor:pointer;min-height:44px}
+.chip.on{background:var(--acc);color:#0b1620;border-color:#0b1620}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+input,select,textarea{background:var(--sf);border:2px solid var(--ln);border-radius:8px;padding:10px 12px;min-height:44px;max-width:100%}
+input:focus,select:focus,button:focus-visible,a:focus-visible,textarea:focus{outline:3px solid var(--acc);outline-offset:1px}
+.big{font-size:20px;width:100%}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:8px}
+.card{background:var(--sf);border:2px solid var(--ln);border-radius:10px;padding:12px;cursor:pointer;text-align:left}
+.card:hover{border-color:var(--ink)}
+.ph{background:var(--bg);border:2px dashed var(--ln);border-radius:8px;display:grid;place-items:center;color:var(--mut);font-size:13px;text-align:center;aspect-ratio:4/3}
+.ph b{font-size:28px;color:var(--ink)}
+.mut{color:var(--mut)}
+.from{font-size:22px;font-weight:800}
+.head{display:grid;grid-template-columns:200px 1fr;gap:16px;margin:12px 0}
+@media(max-width:600px){.head{grid-template-columns:1fr}}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px}
+.qs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:10px}
+.q{background:var(--sf);border:2px solid var(--ln);border-radius:10px;overflow:hidden}
+.q h3{margin:0;padding:10px 14px;background:var(--acc);color:#0b1620;font-size:16px}
+.best{background:var(--gbg);padding:14px;border-bottom:2px solid var(--ln)}
+.best .p{font-size:32px;font-weight:800;color:var(--good);line-height:1.1}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--ln)}
+.row:last-child{border:0}
+.tag{display:inline-block;font-size:12px;font-weight:700;border-radius:4px;padding:1px 6px;background:var(--bg);margin-left:4px}
+.tag.w{background:var(--wbg);color:var(--warn)}
+.sec{background:var(--sf);border:2px solid var(--ln);border-radius:10px;padding:14px;margin:12px 0}
+.sec h2{margin:0 0 10px;font-size:18px}
+.f{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.ar{display:flex;gap:6px;align-items:center;flex-wrap:wrap;padding:6px 0;border-bottom:1px solid var(--ln)}
+.ar input{min-height:36px;padding:4px 8px}
+#wel{position:fixed;inset:0;z-index:50;background:var(--acc);color:#0b1620;display:flex;flex-direction:column;justify-content:center;padding:24px;padding-top:calc(24px + env(safe-area-inset-top,0px));padding-bottom:calc(24px + env(safe-area-inset-bottom,0px));overflow:auto}
+#wel[hidden]{display:none}
+#wel .btn.pri{background:#0b1620;color:#fff;border-color:#0b1620}
+#wel .in{max-width:640px;width:100%;margin:0 auto}
+#wel h1{font-size:clamp(36px,9vw,64px);line-height:1;margin:0 0 16px;font-weight:800;letter-spacing:-.02em}
+#wel input{background:#fff;color:#0b1620;border-color:#0b1620;font-size:22px;padding:16px;width:100%}
+#wel .chip{background:transparent;color:#0b1620;border-color:#0b1620}
+.sug{background:#fff;color:#16212b;border-radius:8px;margin-top:6px}
+.sug button{display:block;width:100%;text-align:left;background:none;border:0;padding:12px 16px;cursor:pointer;font-weight:600;min-height:44px}
+.sug button:hover{background:#d6e8f7}
+textarea{width:100%;min-height:90px;font-family:monospace;font-size:12px}
+</style></head><body>
+<div id="demo"></div>
+<div class="wrap" id="app"></div>
+<div id="wel" hidden></div>
+<script>
+var PARTS=["Módulo","Batería","Pin de carga","Tapa trasera","Flex","Cámara","Parlante"];
+var QUAL={"Módulo":["Incell","Calidad original","Original"]},QDEF=["Genérico","Original"];
+function ql(p){return QUAL[p]||QDEF}
+var db,f={q:"",b:"",z:"",max:""},tab="Módulo",A={m:"",pt:"Módulo"};
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function uid(){return Math.random().toString(36).slice(2,9)}
+function iso(d){return new Date(Date.now()-d*864e5).toISOString().slice(0,10)}
+function seed(){
+ var P=["Distriland","TodoCelu","ElCelu","Onecell"].map(function(n){return{id:n.toLowerCase(),name:n,zona:"Once",web:"",wa:""}});
+ var M=[["Samsung","Galaxy A12",1],["Samsung","Galaxy A32",1.3],["Samsung","Galaxy A54",2],["Motorola","Moto G22",1],["Motorola","Moto E20",.8],["Motorola","Moto G54",1.5],["Xiaomi","Redmi 9A",.8],["Xiaomi","Redmi Note 11",1.3],["Xiaomi","Redmi 12",1.1]].map(function(x){return{id:(x[0]+"-"+x[1].replace(/Galaxy |Moto /,"")).toLowerCase().replace(/[^a-z0-9]+/g,"-"),brand:x[0],name:x[1],desc:"Modelo de ejemplo. Acá va la descripción: pantalla, medidas y datos útiles para el técnico.",t:x[2]}});
+ var base={"Módulo":38000,"Batería":9000,"Pin de carga":4500,"Tapa trasera":6500,"Flex":3500,"Cámara":8000,"Parlante":3000},k={"Incell":1,"Calidad original":1.45,"Original":2.1,"Genérico":1},s=7;
+ function r(){s=s*16807%2147483647;return s/2147483647}
+ var pr=[],ob=["","","Con marco","Sin marco","Retirada"];
+ M.forEach(function(m){P.forEach(function(p){PARTS.forEach(function(pt){ql(pt).forEach(function(q){
+  if(r()<.2)return;var mul=(q==="Original"&&pt!=="Módulo")?1.8:k[q];
+  pr.push({id:uid(),model:m.id,prov:p.id,part:pt,q:q,price:Math.round(base[pt]*m.t*mul*(.9+r()*.25)/100)*100,cur:"ARS",obs:pt==="Módulo"?ob[Math.floor(r()*5)]:"",link:"",date:iso(Math.floor(r()*12))})})})})});
+ return{models:M,providers:P,prices:pr,fx:1200,demo:true}}
+function save(){try{localStorage.setItem("cr-db",JSON.stringify(db))}catch(e){}}
+try{db=JSON.parse(localStorage.getItem("cr-db"))}catch(e){}
+if(!db||!db.models)db=seed();
+function ars(p){return p.cur==="USD"?p.price*db.fx:p.price}
+function fm(n){return"$ "+Math.round(n).toLocaleString("es-AR")}
+function fp(p){return p.cur==="USD"?"US$ "+p.price.toLocaleString("es-AR"):fm(p.price)}
+function prov(id){return db.providers.find(function(p){return p.id===id})||{name:"?",zona:""}}
+function minOf(id,z){var a=db.prices.filter(function(p){return p.model===id&&(!z||prov(p.prov).zona===z)}).map(ars);return a.length?Math.min.apply(null,a):null}
+function days(d){return Math.floor((Date.now()-new Date(d+"T12:00:00"))/864e5)}
+function ago(d){var n=days(d);return n<=0?"hoy":n===1?"ayer":"hace "+n+" d"}
+function buy(p,m){
+ var v=prov(p.prov),href="";
+ if(p.link)href=p.link;
+ else if(v.wa){var t="Hola, vi en Frasti Market el "+p.part.toLowerCase()+" "+p.q+" para "+m.name+" a "+fp(p)+". ¿Lo tenés disponible?";href="https://wa.me/"+v.wa.replace(/\D/g,"")+"?text="+encodeURIComponent(t)}
+ return href?'<a class="btn pri sm" target="_blank" rel="noopener" href="'+esc(href)+'">'+(p.link?"Ir al producto":"Pedir por WhatsApp")+'</a>':'<span class="mut" style="font-size:12px">Sin contacto cargado</span>'}
+function banner(){document.getElementById("demo").innerHTML=db.demo?'<div class="demo">Datos de ejemplo: los precios son inventados y no corresponden a ningún proveedor real.</div>':""}
+function hdr(){return'<div class="top"><a class="logo" href="#inicio"><b>Frasti</b> Market</a><a class="btn sm" href="#admin">Admin</a></div>'}
+function home(){
+ var bs=[].concat.apply([],[db.models.map(function(m){return m.brand})]).filter(function(v,i,a){return a.indexOf(v)===i});
+ var zs=db.providers.map(function(p){return p.zona}).filter(function(v,i,a){return v&&a.indexOf(v)===i});
+ document.getElementById("app").innerHTML=hdr()+
+ '<input class="big" id="q" placeholder="¿Qué modelo buscás?" value="'+esc(f.q)+'" oninput="f.q=this.value;grid()">'+
+ '<div class="chips"><button class="chip'+(f.b?"":" on")+'" onclick="f.b=\'\';home()">Todas</button>'+bs.map(function(b){return'<button class="chip'+(f.b===b?" on":"")+'" onclick="f.b=\''+b+'\';home()">'+esc(b)+'</button>'}).join("")+'</div>'+
+ '<div class="bar"><select onchange="f.z=this.value;grid()" aria-label="Zona"><option value="">Todas las zonas</option>'+zs.map(function(z){return'<option'+(f.z===z?" selected":"")+'>'+esc(z)+'</option>'}).join("")+'</select>'+
+ '<input type="number" inputmode="numeric" placeholder="Precio máximo $" value="'+esc(f.max)+'" oninput="f.max=this.value;grid()"></div><div id="g"></div>';grid()}
+function grid(){
+ var l=db.models.filter(function(m){return(!f.b||m.brand===f.b)&&(!f.q||(m.brand+" "+m.name).toLowerCase().indexOf(f.q.toLowerCase())>-1)}).map(function(m){return{m:m,min:minOf(m.id,f.z)}}).filter(function(x){return x.min!=null&&(!f.max||x.min<=+f.max)});
+ document.getElementById("g").innerHTML=l.length?'<div class="grid">'+l.map(function(x){return'<button class="card" onclick="location.hash=\''+x.m.id+'\'"><div class="ph"><b>'+esc(x.m.brand[0])+'</b>Foto pendiente</div><div style="margin-top:8px;font-weight:700">'+esc(x.m.name)+'</div><div class="mut" style="font-size:13px">'+esc(x.m.brand)+' · desde</div><div class="from">'+fm(x.min)+'</div></button>'}).join("")+'</div>':'<p class="mut">No hay modelos con esos filtros. Probá quitar alguno o subir el precio máximo.</p>'}
+function model(m){
+ var tabs=PARTS.map(function(p){return'<button class="chip'+(tab===p?" on":"")+'" onclick="tab=\''+p+'\';model(db.models.find(function(x){return x.id===\''+m.id+'\'}))">'+p+'</button>'}).join("");
+ var qs=ql(tab).map(function(q){
+  var l=db.prices.filter(function(p){return p.model===m.id&&p.part===tab&&p.q===q}).sort(function(a,b){return ars(a)-ars(b)});
+  if(!l.length)return"";var b=l[0];
+  function st(p){return days(p.date)>7?'<span class="tag w">Revisar precio</span>':""}
+  return'<div class="q"><h3>'+esc(q)+'</h3><div class="best"><div class="mut" style="font-size:13px">Precio más bajo</div><div class="p">'+fp(b)+'</div><div><b>'+esc(prov(b.prov).name)+'</b> · '+esc(prov(b.prov).zona)+(b.obs?'<span class="tag">'+esc(b.obs)+'</span>':"")+'</div><div class="mut" style="font-size:13px;margin:4px 0 8px">Actualizado '+ago(b.date)+st(b)+'</div>'+buy(b,m)+'</div>'+
+  l.slice(1).map(function(p){return'<div class="row"><div><b>'+fp(p)+'</b> '+esc(prov(p.prov).name)+(p.obs?'<span class="tag">'+esc(p.obs)+'</span>':"")+'<div class="mut" style="font-size:12px">'+esc(prov(p.prov).zona)+' · '+ago(p.date)+st(p)+'</div></div>'+buy(p,m)+'</div>'}).join("")+'</div>'}).join("");
+ document.getElementById("app").innerHTML=hdr()+'<a href="#inicio">← Volver a modelos</a><div class="head"><div class="ph"><b>'+esc(m.brand[0])+'</b>Foto pendiente</div><div><h1 style="margin:0">'+esc(m.name)+'</h1><div class="mut">'+esc(m.brand)+'</div><p>'+esc(m.desc)+'</p></div></div><div class="tabs">'+tabs+'</div><div class="qs">'+(qs||'<p class="mut">Todavía no hay precios cargados para este repuesto. Cargalos desde Admin.</p>')+'</div>'}
+function opts(a,sel,fn){return a.map(function(x){var v=fn?fn(x)[0]:x,t=fn?fn(x)[1]:x;return'<option value="'+esc(v)+'"'+(v===sel?" selected":"")+'>'+esc(t)+'</option>'}).join("")}
+function admin(){
+ if(!A.m)A.m=db.models[0].id;
+ var l=db.prices.filter(function(p){return p.model===A.m&&p.part===A.pt});
+ document.getElementById("app").innerHTML=hdr()+'<h1 style="margin:0 0 8px">Panel de administrador</h1><p class="mut">Los cambios se guardan en este navegador. Hacé un respaldo seguido.</p>'+
+ '<div class="sec"><h2>Dólar y cartel</h2><div class="bar"><label>1 US$ = $ <input type="number" value="'+db.fx+'" onchange="db.fx=+this.value||1;save()" style="width:110px"></label>'+(db.demo?'<button class="btn sm" onclick="db.demo=false;save();banner();admin()">Quitar cartel de ejemplo</button>':'<button class="btn sm" onclick="db.demo=true;save();banner();admin()">Mostrar cartel de ejemplo</button>')+'</div></div>'+
+ '<div class="sec"><h2>Agregar precio</h2><div class="f"><select id="am" onchange="A.m=this.value;admin()">'+opts(db.models,A.m,function(m){return[m.id,m.brand+" "+m.name]})+'</select><select id="ap" onchange="A.pt=this.value;admin()">'+opts(PARTS,A.pt)+'</select><select id="aq">'+opts(ql(A.pt))+'</select><select id="av">'+opts(db.providers,"",function(p){return[p.id,p.name]})+'</select><input id="ac" type="number" inputmode="numeric" placeholder="Precio"><select id="ar"><option>ARS</option><option>USD</option></select><input id="ao" placeholder="Observación (con marco…)"><input id="al" placeholder="Link al producto (opcional)"></div><p><button class="btn pri" onclick="addP()">Agregar precio</button></p></div>'+
+ '<div class="sec"><h2>Precios cargados: '+esc(A.pt)+'</h2>'+(l.length?l.map(function(p){return'<div class="ar"><b style="min-width:150px">'+esc(prov(p.prov).name)+' · '+esc(p.q)+'</b><input type="number" value="'+p.price+'" style="width:110px" onchange="upP(\''+p.id+'\',+this.value)"> '+p.cur+'<span class="mut">'+ago(p.date)+'</span><button class="btn sm" onclick="delP(\''+p.id+'\')">Borrar</button></div>'}).join(""):'<p class="mut">No hay precios para este modelo y repuesto. Agregá el primero arriba.</p>')+'<p class="mut" style="font-size:13px">Al cambiar un precio, la fecha se actualiza a hoy.</p></div>'+
+ '<div class="sec"><h2>Proveedores</h2>'+db.providers.map(function(p){return'<div class="ar"><b style="min-width:100px">'+esc(p.name)+'</b><input value="'+esc(p.zona)+'" placeholder="Zona" style="width:90px" onchange="upV(\''+p.id+'\',\'zona\',this.value)"><input value="'+esc(p.wa)+'" placeholder="WhatsApp (5491155…)" style="width:170px" onchange="upV(\''+p.id+'\',\'wa\',this.value)"><input value="'+esc(p.web)+'" placeholder="Web" style="width:170px" onchange="upV(\''+p.id+'\',\'web\',this.value)"></div>'}).join("")+'<div class="ar"><input id="nv" placeholder="Nuevo proveedor"><input id="nz" placeholder="Zona" style="width:90px"><button class="btn sm" onclick="addV()">Agregar proveedor</button></div></div>'+
+ '<div class="sec"><h2>Agregar modelo</h2><div class="f"><input id="nb" placeholder="Marca"><input id="nn" placeholder="Modelo"><input id="nd" placeholder="Descripción"></div><p><button class="btn" onclick="addM()">Agregar modelo</button></p></div>'+
+ '<div class="sec"><h2>Respaldo</h2><textarea id="bk" placeholder="Acá aparece el respaldo para copiar, o pegá uno para cargarlo"></textarea><p class="bar"><button class="btn sm" onclick="var t=document.getElementById(\'bk\');t.value=JSON.stringify(db);t.select()">Mostrar respaldo</button><button class="btn sm" onclick="load()">Cargar respaldo pegado</button><button class="btn sm" onclick="if(confirm(\'Esto borra tus datos y vuelve a los de ejemplo. ¿Seguro?\')){db=seed();save();banner();admin()}">Volver a datos de ejemplo</button></p></div>'}
+function g(i){return document.getElementById(i).value}
+function addP(){var p=+g("ac");if(!p){alert("Ingresá un precio.");return}db.prices.push({id:uid(),model:g("am"),prov:g("av"),part:g("ap"),q:g("aq"),price:p,cur:g("ar"),obs:g("ao"),link:g("al"),date:iso(0)});save();admin()}
+function upP(i,v){var p=db.prices.find(function(x){return x.id===i});if(p&&v){p.price=v;p.date=iso(0);save()}}
+function delP(i){db.prices=db.prices.filter(function(x){return x.id!==i});save();admin()}
+function upV(i,k,v){prov(i)[k]=v;save()}
+function addV(){var n=g("nv").trim();if(!n)return;db.providers.push({id:uid(),name:n,zona:g("nz"),web:"",wa:""});save();admin()}
+function addM(){var b=g("nb").trim(),n=g("nn").trim();if(!b||!n){alert("Completá marca y modelo.");return}var id=(b+"-"+n).toLowerCase().replace(/[^a-z0-9]+/g,"-");db.models.push({id:id,brand:b,name:n,desc:g("nd")||"Sin descripción todavía."});A.m=id;save();admin()}
+function load(){try{var d=JSON.parse(g("bk"));if(!d.models||!d.prices||!d.providers)throw 0;db=d;save();banner();admin()}catch(e){alert("El respaldo no es válido. Copialo completo y probá de nuevo.")}}
+function route(){var h=location.hash.slice(1);window.scrollTo(0,0);if(h==="admin")return admin();var m=db.models.find(function(x){return x.id===h});if(m)return model(m);home()}
+function welcome(){
+ var w=document.getElementById("wel"),bs=db.models.map(function(m){return m.brand}).filter(function(v,i,a){return a.indexOf(v)===i});
+ w.hidden=false;
+ w.innerHTML='<div class="in"><h1>¿Qué repuesto buscás?</h1><input id="wq" placeholder="Escribí el modelo: A12, G22, Redmi 9A…" autocomplete="off"><div class="sug" id="ws" hidden></div><div class="chips">'+bs.map(function(b){return'<button class="chip" data-b="'+esc(b)+'">'+esc(b)+'</button>'}).join("")+'</div><p><button class="btn pri" id="wx">Explorar todo</button></p></div>';
+ function close(){w.hidden=true;try{localStorage.setItem("cr-seen","1")}catch(e){}}
+ document.getElementById("wx").onclick=function(){close();route()};
+ w.querySelectorAll("[data-b]").forEach(function(b){b.onclick=function(){f.b=b.dataset.b;close();location.hash="inicio";home()}});
+ var i=document.getElementById("wq"),s=document.getElementById("ws");
+ i.oninput=function(){var v=i.value.toLowerCase(),l=v?db.models.filter(function(m){return(m.brand+" "+m.name).toLowerCase().indexOf(v)>-1}).slice(0,5):[];s.hidden=!l.length;s.innerHTML=l.map(function(m){return'<button data-m="'+m.id+'">'+esc(m.brand+" "+m.name)+'</button>'}).join("");s.querySelectorAll("button").forEach(function(b){b.onclick=function(){close();location.hash=b.dataset.m}})};
+ i.onkeydown=function(e){if(e.key==="Enter"){f.q=i.value;close();location.hash="inicio";home()}}}
+window.addEventListener("hashchange",route);
+banner();route();
+var seen=false;try{seen=localStorage.getItem("cr-seen")}catch(e){}
+if(!seen&&!location.hash)welcome();
+</script></body></html>
